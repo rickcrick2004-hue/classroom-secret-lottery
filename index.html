@@ -63,99 +63,100 @@
         }
     </style>
 </head>
-<body class="h-screen w-screen flex flex-col text-slate-800">
+<body class="min-h-screen lg:h-screen w-screen flex flex-col text-slate-800 overflow-x-hidden overflow-y-auto lg:overflow-hidden">
 
     <!-- ================= HEADER (Always Visible) ================= -->
-    <header class="h-16 bg-white border-b border-slate-200 px-6 flex items-center justify-between shrink-0 shadow-sm z-10">
-        <div class="flex items-center space-x-4">
-            <div class="bg-blue-600 text-white p-2 rounded-xl shadow-md">
-                <i class="fa-solid fa-dice text-xl"></i>
+    <header class="min-h-14 lg:h-16 bg-white border-b border-slate-200 px-3 sm:px-6 py-2 lg:py-0 flex flex-wrap items-center justify-between gap-2 shrink-0 shadow-sm z-10">
+        <div class="flex items-center space-x-2 sm:space-x-4">
+            <div class="bg-blue-600 text-white p-1.5 sm:p-2 rounded-xl shadow-md">
+                <i class="fa-solid fa-dice text-lg sm:text-xl"></i>
             </div>
-            <h1 id="headerClassName" class="text-2xl font-black tracking-tight text-slate-800">2年A組</h1>
-            <span id="headerCountBadge" class="bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-sm font-bold border border-slate-200">
+            <h1 id="headerClassName" class="text-lg sm:text-2xl font-black tracking-tight text-slate-800">2年A組</h1>
+            <span id="headerCountBadge" class="bg-slate-100 text-slate-600 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm font-bold border border-slate-200">
                 全35人
             </span>
         </div>
 
         <!-- Center Status Pill: Duplicate ON/OFF (Visual Clarity) -->
-        <div class="flex items-center space-x-3">
-            <button id="toggleDupBtn" onclick="window.app.toggleDuplicateMode()" class="flex items-center space-x-2 px-4 py-2 rounded-full font-bold text-sm transition-all shadow-sm border">
+        <div class="flex items-center space-x-1.5 sm:space-x-3 order-3 lg:order-2 w-full lg:w-auto justify-center border-t lg:border-t-0 pt-1.5 lg:pt-0 border-slate-100">
+            <button id="toggleDupBtn" onclick="window.app.toggleDuplicateMode()" class="flex items-center space-x-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-bold text-xs sm:text-sm transition-all shadow-sm border">
                 <!-- Content injected by JS -->
             </button>
-            <button id="toggleAnimBtn" onclick="window.app.toggleAnimation()" class="flex items-center space-x-2 px-3 py-2 rounded-full font-bold text-sm bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200 transition">
+            <button id="toggleAnimBtn" onclick="window.app.toggleAnimation()" class="flex items-center space-x-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-full font-bold text-xs sm:text-sm bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200 transition">
                 <i id="animIcon" class="fa-solid fa-drum text-amber-500"></i>
                 <span id="animText">演出 ON</span>
             </button>
-            <button id="toggleSoundBtn" onclick="window.app.toggleSound()" class="p-2 rounded-full bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200 transition w-9 h-9 flex items-center justify-center">
-                <i id="soundIcon" class="fa-solid fa-volume-high text-blue-600"></i>
+            <button id="toggleSoundBtn" onclick="window.app.toggleSound()" class="p-1.5 sm:p-2 rounded-full bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200 transition w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center">
+                <i id="soundIcon" class="fa-solid fa-volume-high text-blue-600 text-xs sm:text-base"></i>
             </button>
         </div>
 
         <!-- Right Controls -->
-        <div class="flex items-center space-x-3">
-            <button onclick="window.app.openDistributeView()" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-4 py-2 rounded-xl font-bold text-sm flex items-center space-x-2 transition">
+        <div class="flex items-center space-x-1.5 sm:space-x-3 order-2 lg:order-3">
+            <button onclick="window.app.openDistributeView()" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-xl font-bold text-xs sm:text-sm flex items-center space-x-1.5 transition">
                 <i class="fa-solid fa-table-cells"></i>
-                <span>一覧表示 (配布用)</span>
+                <span class="hidden sm:inline">一覧表示 (配布用)</span>
+                <span class="sm:hidden">一覧</span>
             </button>
-            <button onclick="window.app.confirmReset()" class="bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 px-3 py-2 rounded-xl font-bold text-sm flex items-center space-x-1 transition" title="最初からやり直す">
+            <button onclick="window.app.confirmReset()" class="bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl font-bold text-xs sm:text-sm flex items-center space-x-1 transition" title="最初からやり直す">
                 <i class="fa-solid fa-rotate-right"></i>
-                <span>リセット</span>
+                <span class="hidden sm:inline">リセット</span>
             </button>
             <!-- Secret/Password Protected Teacher Button -->
-            <button onclick="window.app.openPinModal()" class="text-slate-400 hover:text-slate-600 p-2 rounded-xl hover:bg-slate-100 transition" title="先生用設定">
-                <i class="fa-solid fa-gear text-xl"></i>
+            <button onclick="window.app.openPinModal()" class="text-slate-400 hover:text-slate-600 p-1.5 sm:p-2 rounded-xl hover:bg-slate-100 transition" title="管理設定">
+                <i class="fa-solid fa-gear text-lg sm:text-xl"></i>
             </button>
         </div>
     </header>
 
-    <!-- ================= MAIN STUDENT VIEW (iPad Landscape Split) ================= -->
-    <main class="flex-1 flex overflow-hidden">
+    <!-- ================= MAIN STUDENT VIEW (Responsive Mobile + iPad Landscape Split) ================= -->
+    <main class="flex-1 flex flex-col lg:flex-row lg:overflow-hidden">
         
-        <!-- LEFT AREA: Big Draw Area (60% width) -->
-        <section class="w-7/12 h-full flex flex-col justify-between p-8 bg-gradient-to-br from-slate-50 to-blue-50/40 relative">
+        <!-- LEFT AREA: Big Draw Area -->
+        <section class="w-full lg:w-7/12 lg:h-full flex flex-col justify-between p-4 sm:p-6 lg:p-8 bg-gradient-to-br from-slate-50 to-blue-50/40 relative shrink-0">
             
             <!-- Top Indicator: Who is drawing now? -->
-            <div class="bg-white/90 backdrop-blur border border-slate-200 rounded-2xl p-4 shadow-sm flex items-center justify-between">
-                <div class="flex items-center space-x-3">
-                    <span class="bg-blue-100 text-blue-700 font-black px-3 py-1 rounded-lg text-sm">現在の順番</span>
-                    <div id="turnTitle" class="text-2xl font-black text-slate-800">
-                        出席番号 <span class="text-blue-600 text-3xl">1</span> 番の人
+            <div class="bg-white/90 backdrop-blur border border-slate-200 rounded-2xl p-3 sm:p-4 shadow-sm flex items-center justify-between">
+                <div class="flex items-center space-x-2 sm:space-x-3">
+                    <span class="bg-blue-100 text-blue-700 font-black px-2.5 py-1 rounded-lg text-xs sm:text-sm">現在の順番</span>
+                    <div id="turnTitle" class="text-lg sm:text-2xl font-black text-slate-800">
+                        出席番号 <span class="text-blue-600 text-2xl sm:text-3xl">1</span> 番の人
                     </div>
                 </div>
-                <div id="remainingBadge" class="text-slate-500 font-bold text-base">
+                <div id="remainingBadge" class="text-slate-500 font-bold text-xs sm:text-base shrink-0">
                     残り <span class="text-slate-800 font-black">35</span> 人
                 </div>
             </div>
 
             <!-- Center: HUGE Number Box -->
-            <div class="flex-1 flex flex-col items-center justify-center my-4 bg-white rounded-3xl shadow-inner border-2 border-slate-200/80 relative overflow-hidden">
-                <div id="resultLabel" class="text-slate-400 font-bold text-xl mb-1 tracking-widest">
+            <div class="flex-1 flex flex-col items-center justify-center my-3 sm:my-4 py-6 lg:py-0 bg-white rounded-3xl shadow-inner border-2 border-slate-200/80 relative overflow-hidden min-h-[200px] sm:min-h-[260px]">
+                <div id="resultLabel" class="text-slate-400 font-bold text-sm sm:text-xl mb-1 tracking-widest">
                     あなたの番号（座席・順番）
                 </div>
-                <div id="mainNumberDisplay" class="text-[11rem] leading-none font-black text-blue-600 number-glow select-none flex items-center justify-center h-48">
+                <div id="mainNumberDisplay" class="text-7xl sm:text-9xl lg:text-[11rem] leading-none font-black text-blue-600 number-glow select-none flex items-center justify-center h-28 sm:h-40 lg:h-48">
                     ?
                 </div>
                 <!-- Sub message for cooldown or status -->
-                <div id="statusSubText" class="h-8 text-base font-bold text-amber-600 flex items-center">
+                <div id="statusSubText" class="min-h-8 px-4 text-center text-xs sm:text-base font-bold text-amber-600 flex items-center justify-center">
                     ボタンを押してくじを引いてください
                 </div>
             </div>
 
             <!-- Bottom: Huge Unmistakable Action Button -->
-            <div class="h-28 flex items-center justify-center">
-                <button id="drawButton" onclick="window.app.handleDrawClick()" class="btn-push w-full h-24 bg-blue-600 hover:bg-blue-500 disabled:bg-slate-300 text-white rounded-3xl font-black text-4xl tracking-wider flex items-center justify-center space-x-4">
+            <div class="h-20 sm:h-28 flex items-center justify-center">
+                <button id="drawButton" onclick="window.app.handleDrawClick()" class="btn-push w-full h-16 sm:h-24 bg-blue-600 hover:bg-blue-500 disabled:bg-slate-300 text-white rounded-2xl sm:rounded-3xl font-black text-xl sm:text-3xl lg:text-4xl tracking-wider flex items-center justify-center space-x-3 sm:space-x-4 px-4">
                     <i id="drawBtnIcon" class="fa-solid fa-hand-pointer"></i>
                     <span id="drawBtnText">ここを押して引く！</span>
                 </button>
             </div>
         </section>
 
-        <!-- RIGHT AREA: History List (40% width) -->
-        <aside class="w-5/12 h-full bg-white border-l border-slate-200 flex flex-col">
-            <div class="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+        <!-- RIGHT AREA: History List -->
+        <aside class="w-full lg:w-5/12 lg:h-full bg-white border-t lg:border-t-0 lg:border-l border-slate-200 flex flex-col min-h-[320px] lg:min-h-0">
+            <div class="p-3 sm:p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
                 <div class="flex items-center space-x-2">
                     <i class="fa-solid fa-list-ol text-blue-600"></i>
-                    <h2 class="font-black text-lg text-slate-700">出た順番・結果リスト</h2>
+                    <h2 class="font-black text-base sm:text-lg text-slate-700">出た順番・結果リスト</h2>
                 </div>
                 <div class="flex space-x-1 bg-slate-200/70 p-1 rounded-lg text-xs font-bold">
                     <button id="sortOrderBtn" onclick="window.app.setHistorySort('order')" class="px-2.5 py-1 rounded-md bg-white text-slate-800 shadow-sm transition">引いた順</button>
@@ -164,14 +165,14 @@
             </div>
 
             <!-- Scrollable List -->
-            <div id="historyContainer" class="flex-1 overflow-y-auto p-4 grid grid-cols-2 gap-2.5 content-start">
+            <div id="historyContainer" class="flex-1 overflow-y-auto p-3 sm:p-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-2.5 content-start max-h-80 lg:max-h-none">
                 <!-- History items injected here -->
             </div>
 
             <!-- Footer quick action for teacher batch draw -->
-            <div class="p-3 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
-                <span class="text-xs text-slate-400 font-bold">※全員分を一気に出す場合は右のボタン</span>
-                <button onclick="window.app.confirmBatchDraw()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl font-bold text-sm shadow-sm flex items-center space-x-2 transition">
+            <div class="p-3 bg-slate-50 border-t border-slate-200 flex items-center justify-between gap-2">
+                <span class="text-xs text-slate-400 font-bold">※全員分を一気に出す場合</span>
+                <button onclick="window.app.confirmBatchDraw()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl font-bold text-xs sm:text-sm shadow-sm flex items-center space-x-2 transition shrink-0">
                     <i class="fa-solid fa-bolt"></i>
                     <span>残りを一括抽選</span>
                 </button>
@@ -181,8 +182,8 @@
     </main>
 
     <!-- ================= MODAL 1: PASSWORD (2216) ================= -->
-    <div id="pinModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50">
-        <div class="bg-white rounded-3xl shadow-2xl w-96 p-6 border border-slate-100 flex flex-col items-center">
+    <div id="pinModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-sm p-6 border border-slate-100 flex flex-col items-center">
             <div class="w-12 h-12 bg-slate-100 text-slate-600 rounded-full flex items-center justify-center mb-3">
                 <i class="fa-solid fa-lock text-xl"></i>
             </div>
@@ -214,53 +215,53 @@
     </div>
 
     <!-- ================= MODAL 2: TEACHER BACKSTAGE (Rigging & Presets) ================= -->
-    <div id="teacherModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm hidden items-center justify-center z-50 p-6">
-        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-5xl h-[90vh] flex flex-col overflow-hidden border border-slate-200">
+    <div id="teacherModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm hidden items-center justify-center z-50 p-2 sm:p-6">
+        <div class="bg-white rounded-2xl sm:rounded-3xl shadow-2xl w-full max-w-5xl h-[95vh] sm:h-[90vh] flex flex-col overflow-hidden border border-slate-200">
             
             <!-- Modal Header -->
-            <div class="px-6 py-4 bg-slate-800 text-white flex items-center justify-between shrink-0">
-                <div class="flex items-center space-x-3">
-                    <i class="fa-solid fa-user-secret text-2xl text-amber-400"></i>
+            <div class="px-4 sm:px-6 py-3 sm:py-4 bg-slate-800 text-white flex items-center justify-between gap-2 shrink-0">
+                <div class="flex items-center space-x-2 sm:space-x-3">
+                    <i class="fa-solid fa-user-secret text-xl sm:text-2xl text-amber-400"></i>
                     <div>
-                        <h2 class="text-xl font-black">担任用・裏設定パネル（クラス設定＆順番の仕込み）</h2>
-                        <p class="text-xs text-slate-300">ここでの設定は生徒画面からは一切見えません。</p>
+                        <h2 class="text-base sm:text-xl font-black">担任用・裏設定パネル</h2>
+                        <p class="text-[11px] sm:text-xs text-slate-300 hidden sm:block">ここでの設定は生徒画面からは一切見えません。</p>
                     </div>
                 </div>
-                <button onclick="window.app.closeTeacherModal()" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-xl font-bold text-sm">
-                    設定を完了して生徒画面へ戻る
+                <button onclick="window.app.closeTeacherModal()" class="bg-slate-700 hover:bg-slate-600 text-white px-3 sm:px-4 py-2 rounded-xl font-bold text-xs sm:text-sm shrink-0">
+                    生徒画面へ戻る
                 </button>
             </div>
 
             <!-- Modal Body (Tabs) -->
-            <div class="flex border-b border-slate-200 bg-slate-100 px-6 pt-3 space-x-2 shrink-0">
-                <button id="tabBtnBasic" onclick="window.app.switchTeacherTab('basic')" class="px-5 py-2.5 rounded-t-xl font-black text-sm bg-white text-blue-600 border-t border-x border-slate-200">
-                    1. 基本設定・欠席者・事前指定（仕込み）
+            <div class="flex border-b border-slate-200 bg-slate-100 px-2 sm:px-6 pt-2 sm:pt-3 space-x-1 sm:space-x-2 shrink-0 overflow-x-auto">
+                <button id="tabBtnBasic" onclick="window.app.switchTeacherTab('basic')" class="px-3 sm:px-5 py-2 sm:py-2.5 rounded-t-xl font-black text-xs sm:text-sm bg-white text-blue-600 border-t border-x border-slate-200 whitespace-nowrap">
+                    1. 基本設定・欠席・仕込み
                 </button>
-                <button id="tabBtnPresets" onclick="window.app.switchTeacherTab('presets')" class="px-5 py-2.5 rounded-t-xl font-bold text-sm text-slate-600 hover:bg-white/50">
-                    2. クラス情報の保存・呼び出し
+                <button id="tabBtnPresets" onclick="window.app.switchTeacherTab('presets')" class="px-3 sm:px-5 py-2 sm:py-2.5 rounded-t-xl font-bold text-xs sm:text-sm text-slate-600 hover:bg-white/50 whitespace-nowrap">
+                    2. クラス保存・呼出
                 </button>
-                <button id="tabBtnSavedResults" onclick="window.app.switchTeacherTab('results')" class="px-5 py-2.5 rounded-t-xl font-bold text-sm text-slate-600 hover:bg-white/50">
-                    3. 過去の結果の保存・履歴
+                <button id="tabBtnSavedResults" onclick="window.app.switchTeacherTab('results')" class="px-3 sm:px-5 py-2 sm:py-2.5 rounded-t-xl font-bold text-xs sm:text-sm text-slate-600 hover:bg-white/50 whitespace-nowrap">
+                    3. 過去の結果履歴
                 </button>
             </div>
 
             <!-- TAB 1: Basic, Absent, Rigging -->
-            <div id="tabContentBasic" class="flex-1 overflow-y-auto p-6 space-y-6">
+            <div id="tabContentBasic" class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6">
                 
                 <!-- Top Row: Class Name, Total Count, Batch Trigger -->
-                <div class="grid grid-cols-12 gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-200">
-                    <div class="col-span-4">
+                <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                    <div class="sm:col-span-4">
                         <label class="block text-xs font-bold text-slate-500 mb-1">クラス名・タイトル</label>
                         <input id="inputClassName" type="text" value="2年A組" onchange="window.app.updateBasicSettings()" class="w-full px-3 py-2 rounded-xl border border-slate-300 font-bold text-base">
                     </div>
-                    <div class="col-span-3">
+                    <div class="sm:col-span-3">
                         <label class="block text-xs font-bold text-slate-500 mb-1">クラスの人数 (1〜60人)</label>
                         <div class="flex items-center space-x-2">
                             <input id="inputTotalStudents" type="number" min="1" max="60" value="35" onchange="window.app.updateBasicSettings()" class="w-24 px-3 py-2 rounded-xl border border-slate-300 font-black text-lg text-center">
                             <span class="font-bold text-sm text-slate-600">人</span>
                         </div>
                     </div>
-                    <div class="col-span-5 flex flex-col justify-end">
+                    <div class="sm:col-span-5 flex flex-col justify-end">
                         <div class="flex items-center space-x-2">
                             <button onclick="window.app.runInstantBatchFromTeacher()" class="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white py-2.5 px-4 rounded-xl font-black text-sm shadow flex items-center justify-center space-x-2">
                                 <i class="fa-solid fa-bolt"></i>
@@ -271,30 +272,32 @@
                 </div>
 
                 <!-- Two Columns: Rigging (Left) & Absent (Right) -->
-                <div class="grid grid-cols-12 gap-6">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
                     
                     <!-- Left: Rigging (7 cols) -->
-                    <div class="col-span-7 bg-amber-50/60 border border-amber-200 rounded-2xl p-5 flex flex-col">
-                        <div class="flex items-center justify-between mb-3">
+                    <div class="lg:col-span-7 bg-amber-50/60 border border-amber-200 rounded-2xl p-4 sm:p-5 flex flex-col">
+                        <div class="flex items-center justify-between mb-2">
                             <div class="flex items-center space-x-2">
                                 <span class="bg-amber-500 text-white text-xs font-black px-2.5 py-1 rounded-md">極秘</span>
-                                <h3 class="font-black text-slate-800 text-base">順番・番号の事前仕込み設定</h3>
+                                <h3 class="font-black text-slate-800 text-sm sm:text-base">順番・番号の事前仕込み設定</h3>
                             </div>
                             <button onclick="window.app.clearAllRigging()" class="text-xs text-rose-600 hover:underline font-bold">仕込みを全解除</button>
                         </div>
-                        <p class="text-xs text-slate-600 mb-4 leading-relaxed">
-                            例：「35番の生徒（35人目）が出る番号を <b>1</b> に固定する」「20番の生徒を <b>2</b> にする」といった指定ができます。指定外の生徒は残りの番号から自動でランダム抽選されます。
+                        <p class="text-xs text-slate-600 mb-3 leading-relaxed">
+                            一度指定した出席番号や結果番号は選択肢からロックされます。同じ番号を別の人に割り当てたい場合は、下のリストの「解除」を押してキャンセルしてください。
                         </p>
 
                         <!-- Add Rigging Form -->
-                        <div class="flex items-center space-x-2 bg-white p-3 rounded-xl border border-amber-200 mb-4 shadow-sm">
-                            <span class="text-xs font-bold text-slate-600">出席番号(順番)</span>
-                            <select id="rigTurnSelect" class="px-3 py-1.5 rounded-lg border border-slate-300 font-black text-base bg-slate-50"></select>
-                            <span class="text-xs font-bold text-slate-600">番の生徒 ➔ 結果</span>
-                            <select id="rigValSelect" class="px-3 py-1.5 rounded-lg border border-slate-300 font-black text-base bg-slate-50"></select>
-                            <span class="text-xs font-bold text-slate-600">番にする</span>
-                            <button onclick="window.app.addRigRule()" class="ml-auto bg-amber-500 hover:bg-amber-600 text-white font-black text-xs px-4 py-2 rounded-lg shadow-sm">
-                                追加・上書き
+                        <div class="flex flex-wrap items-center gap-2 bg-white p-3 rounded-xl border border-amber-200 mb-4 shadow-sm">
+                            <div class="flex items-center space-x-1.5">
+                                <span class="text-xs font-bold text-slate-600">出席番号</span>
+                                <select id="rigTurnSelect" class="px-2.5 py-1.5 rounded-lg border border-slate-300 font-black text-sm sm:text-base bg-slate-50"></select>
+                                <span class="text-xs font-bold text-slate-600">番 ➔ 結果</span>
+                                <select id="rigValSelect" class="px-2.5 py-1.5 rounded-lg border border-slate-300 font-black text-sm sm:text-base bg-slate-50"></select>
+                                <span class="text-xs font-bold text-slate-600">番</span>
+                            </div>
+                            <button id="addRigBtn" onclick="window.app.addRigRule()" class="ml-auto bg-amber-500 hover:bg-amber-600 disabled:bg-slate-300 text-white font-black text-xs px-4 py-2 rounded-lg shadow-sm">
+                                追加する
                             </button>
                         </div>
 
@@ -305,15 +308,15 @@
                     </div>
 
                     <!-- Right: Absent Students Exclusion (5 cols) -->
-                    <div class="col-span-5 bg-slate-50 border border-slate-200 rounded-2xl p-5 flex flex-col">
+                    <div class="lg:col-span-5 bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col">
                         <div class="flex items-center justify-between mb-2">
-                            <h3 class="font-black text-slate-800 text-base">欠席者の除外（スキップ）設定</h3>
+                            <h3 class="font-black text-slate-800 text-sm sm:text-base">欠席者の除外（スキップ）設定</h3>
                             <button onclick="window.app.clearAbsent()" class="text-xs text-slate-500 hover:underline font-bold">全員出席に戻す</button>
                         </div>
                         <p class="text-xs text-slate-500 mb-3">
                             タップして赤くした出席番号の生徒は、くじ引きの順番が自動でスキップされます。
                         </p>
-                        <div id="absentGrid" class="grid grid-cols-6 gap-2 overflow-y-auto max-h-64 p-1">
+                        <div id="absentGrid" class="grid grid-cols-5 sm:grid-cols-6 gap-2 overflow-y-auto max-h-64 p-1">
                             <!-- 1..N buttons injected by JS -->
                         </div>
                     </div>
@@ -322,13 +325,13 @@
             </div>
 
             <!-- TAB 2: Class Presets (Cloud / Memory Save) -->
-            <div id="tabContentPresets" class="flex-1 overflow-y-auto p-6 hidden space-y-6">
-                <div class="bg-blue-50 border border-blue-200 rounded-2xl p-4 flex items-center justify-between">
+            <div id="tabContentPresets" class="flex-1 overflow-y-auto p-4 sm:p-6 hidden space-y-6">
+                <div class="bg-blue-50 border border-blue-200 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div>
-                        <h3 class="font-black text-slate-800 text-base">現在の設定（「クラス名」「人数」「仕込み内容」）を保存</h3>
+                        <h3 class="font-black text-slate-800 text-sm sm:text-base">現在の設定（「クラス名」「人数」「仕込み内容」）を保存</h3>
                         <p class="text-xs text-slate-600">一度登録しておくと、次回からワンタップで呼び出せます。</p>
                     </div>
-                    <button onclick="window.app.saveCurrentClassPreset()" class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-xl font-black text-sm shadow flex items-center space-x-2">
+                    <button onclick="window.app.saveCurrentClassPreset()" class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-xl font-black text-xs sm:text-sm shadow flex items-center justify-center space-x-2 shrink-0">
                         <i class="fa-solid fa-bookmark"></i>
                         <span>現在のクラス設定を新規保存</span>
                     </button>
@@ -336,20 +339,20 @@
 
                 <div>
                     <h4 class="font-black text-sm text-slate-600 mb-3">登録済みクラス一覧</h4>
-                    <div id="presetListContainer" class="grid grid-cols-2 gap-4">
+                    <div id="presetListContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <!-- Injected by JS -->
                     </div>
                 </div>
             </div>
 
             <!-- TAB 3: Saved Past Results -->
-            <div id="tabContentResults" class="flex-1 overflow-y-auto p-6 hidden space-y-6">
-                <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 flex items-center justify-between">
+            <div id="tabContentResults" class="flex-1 overflow-y-auto p-4 sm:p-6 hidden space-y-6">
+                <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div>
-                        <h3 class="font-black text-slate-800 text-base">現在の抽選結果を記録に残す</h3>
+                        <h3 class="font-black text-slate-800 text-sm sm:text-base">現在の抽選結果を記録に残す</h3>
                         <p class="text-xs text-slate-600">席替え後の確認用として、今の結果リストを日時付きで保存できます。</p>
                     </div>
-                    <button onclick="window.app.saveCurrentResultHistory()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2.5 rounded-xl font-black text-sm shadow flex items-center space-x-2">
+                    <button onclick="window.app.saveCurrentResultHistory()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2.5 rounded-xl font-black text-xs sm:text-sm shadow flex items-center justify-center space-x-2 shrink-0">
                         <i class="fa-solid fa-floppy-disk"></i>
                         <span>今の抽選結果を保存する</span>
                     </button>
@@ -369,25 +372,25 @@
     <!-- ================= MODAL 3: FULLSCREEN DISTRIBUTION GRID (For Screenshot) ================= -->
     <div id="distributeModal" class="fixed inset-0 bg-white hidden flex-col z-50">
         <!-- Top Bar -->
-        <div class="h-16 px-8 bg-slate-900 text-white flex items-center justify-between shrink-0">
-            <div class="flex items-center space-x-4">
-                <span id="distClassName" class="text-2xl font-black text-amber-400">2年A組</span>
-                <span class="text-lg font-bold">席替え・くじ引き結果一覧</span>
-                <span id="distDate" class="text-xs text-slate-400 font-bold"></span>
+        <div class="min-h-16 px-4 sm:px-8 py-2 bg-slate-900 text-white flex flex-wrap items-center justify-between gap-2 shrink-0">
+            <div class="flex items-center space-x-2 sm:space-x-4">
+                <span id="distClassName" class="text-lg sm:text-2xl font-black text-amber-400">2年A組</span>
+                <span class="text-sm sm:text-lg font-bold">結果一覧</span>
+                <span id="distDate" class="text-xs text-slate-400 font-bold hidden sm:inline"></span>
             </div>
-            <div class="flex items-center space-x-3">
-                <span class="text-xs text-slate-300 mr-2"><i class="fa-solid fa-camera mr-1"></i>スクリーンショットを撮って配布できます</span>
+            <div class="flex items-center space-x-2 sm:space-x-3">
+                <span class="text-xs text-slate-300 mr-2 hidden lg:inline"><i class="fa-solid fa-camera mr-1"></i>スクリーンショットを撮って配布できます</span>
                 <div class="bg-slate-800 p-1 rounded-xl flex space-x-1 text-xs font-bold">
-                    <button id="distSortOrderBtn" onclick="window.app.setDistSort('order')" class="px-3 py-1.5 rounded-lg bg-blue-600 text-white">出席番号順</button>
-                    <button id="distSortResultBtn" onclick="window.app.setDistSort('result')" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white">結果の番号順</button>
+                    <button id="distSortOrderBtn" onclick="window.app.setDistSort('order')" class="px-2.5 sm:px-3 py-1.5 rounded-lg bg-blue-600 text-white">出席番号順</button>
+                    <button id="distSortResultBtn" onclick="window.app.setDistSort('result')" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-slate-300 hover:text-white">結果の番号順</button>
                 </div>
-                <button onclick="window.app.closeDistributeView()" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-xl font-bold text-sm">
+                <button onclick="window.app.closeDistributeView()" class="bg-slate-700 hover:bg-slate-600 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl font-bold text-xs sm:text-sm">
                     閉じる
                 </button>
             </div>
         </div>
         <!-- Grid Body -->
-        <div id="distributeGrid" class="flex-1 p-6 overflow-y-auto grid grid-cols-5 sm:grid-cols-6 md:grid-cols-7 gap-3 content-start bg-slate-50">
+        <div id="distributeGrid" class="flex-1 p-4 sm:p-6 overflow-y-auto grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7 gap-2.5 sm:gap-3 content-start bg-slate-50">
             <!-- Cards injected by JS -->
         </div>
     </div>
@@ -807,21 +810,46 @@
             document.getElementById('inputClassName').value = state.className;
             document.getElementById('inputTotalStudents').value = state.totalStudents;
 
-            // Populate dropdowns for rigging
+            // Populate dropdowns for rigging (Exclude already rigged students & already taken target numbers)
             const turnSel = document.getElementById('rigTurnSelect');
             const valSel = document.getElementById('rigValSelect');
+            const addRigBtn = document.getElementById('addRigBtn');
+            const prevTurn = turnSel.value;
+            const prevVal = valSel.value;
+
             turnSel.innerHTML = '';
             valSel.innerHTML = '';
-            for (let i = 1; i <= state.totalStudents; i++) {
-                const opt1 = document.createElement('option');
-                opt1.value = i;
-                opt1.textContent = i;
-                turnSel.appendChild(opt1);
 
-                const opt2 = document.createElement('option');
-                opt2.value = i;
-                opt2.textContent = i;
-                valSel.appendChild(opt2);
+            const usedTurns = new Set(Object.keys(state.riggedMap).map(Number));
+            const usedValues = new Set(Object.values(state.riggedMap).map(Number));
+
+            for (let i = 1; i <= state.totalStudents; i++) {
+                // Only show attendance numbers that haven't been rigged yet
+                if (!usedTurns.has(i)) {
+                    const opt1 = document.createElement('option');
+                    opt1.value = i;
+                    opt1.textContent = i;
+                    turnSel.appendChild(opt1);
+                }
+
+                // If duplicates are not allowed, hide target numbers that are already assigned to someone else
+                if (state.allowDuplicates || !usedValues.has(i)) {
+                    const opt2 = document.createElement('option');
+                    opt2.value = i;
+                    opt2.textContent = i;
+                    valSel.appendChild(opt2);
+                }
+            }
+
+            if (prevTurn && Array.from(turnSel.options).some(o => o.value === prevTurn)) {
+                turnSel.value = prevTurn;
+            }
+            if (prevVal && Array.from(valSel.options).some(o => o.value === prevVal)) {
+                valSel.value = prevVal;
+            }
+
+            if (addRigBtn) {
+                addRigBtn.disabled = (turnSel.options.length === 0 || valSel.options.length === 0);
             }
 
             // Render Rigging Rules List
@@ -841,7 +869,7 @@
                             <i class="fa-solid fa-arrow-right text-amber-500"></i>
                             <span class="text-slate-700">結果 <span class="text-amber-600 text-base">${val}</span> 番に固定</span>
                         </div>
-                        <button onclick="window.app.removeRigRule(${ord})" class="text-rose-500 hover:bg-rose-50 px-2.5 py-1 rounded-lg text-xs font-bold">解除</button>
+                        <button onclick="window.app.removeRigRule(${ord})" class="bg-rose-50 text-rose-600 hover:bg-rose-100 px-3 py-1 rounded-lg text-xs font-bold border border-rose-200">解除（キャンセル）</button>
                     `;
                     rigList.appendChild(row);
                 });
@@ -1053,7 +1081,7 @@
             confirmReset() {
                 showConfirmDialog(
                     "くじ引きのリセット",
-                    "現在の抽選結果をクリアして、出席番号1番からやり直しますか？（先生の仕込み設定は維持されます）",
+                    "現在の抽選結果をクリアして、出席番号1番からやり直しますか？",
                     () => {
                         state.results = [];
                         state.currentSeatOrder = 1;
@@ -1074,8 +1102,8 @@
                     return;
                 }
                 showConfirmDialog(
-                    "全員分を一括抽選",
-                    "残りの生徒全員分の番号を一気に出力しますか？（事前設定された仕込みも正確に反映されます）",
+                    "残りを一括抽選",
+                    "まだ引いていない残りの生徒全員分の番号を、まとめて抽選しますか？",
                     () => executeBatchDraw()
                 );
             },
@@ -1174,25 +1202,22 @@
             },
 
             addRigRule() {
-                const ord = parseInt(document.getElementById('rigTurnSelect').value, 10);
-                const val = parseInt(document.getElementById('rigValSelect').value, 10);
+                const turnVal = document.getElementById('rigTurnSelect').value;
+                const targetVal = document.getElementById('rigValSelect').value;
+                if (!turnVal || !targetVal) return;
 
-                // Remove duplicate target if no-duplicate mode
-                if (!state.allowDuplicates) {
-                    for (const [existingOrd, existingVal] of Object.entries(state.riggedMap)) {
-                        if (Number(existingVal) === val && Number(existingOrd) !== ord) {
-                            delete state.riggedMap[existingOrd];
-                        }
-                    }
-                }
+                const ord = parseInt(turnVal, 10);
+                const val = parseInt(targetVal, 10);
+
                 state.riggedMap[ord] = val;
                 renderTeacherPanel();
-                showToast(`出席番号${ord}番 ➔ 結果${val}番 を仕込みました`);
+                showToast(`出席番号${ord}番 ➔ 結果${val}番 を設定しました`);
             },
 
             removeRigRule(ord) {
                 delete state.riggedMap[ord];
                 renderTeacherPanel();
+                showToast(`出席番号${ord}番の指定を解除しました`);
             },
 
             clearAllRigging() {
