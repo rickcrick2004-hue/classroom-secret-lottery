@@ -77,9 +77,12 @@
             </span>
         </div>
 
-        <!-- Center Status Pill: Duplicate ON/OFF (Visual Clarity) -->
-        <div class="flex items-center space-x-1.5 sm:space-x-3 order-3 lg:order-2 w-full lg:w-auto justify-center border-t lg:border-t-0 pt-1.5 lg:pt-0 border-slate-100">
-            <button id="toggleDupBtn" onclick="window.app.toggleDuplicateMode()" class="flex items-center space-x-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-bold text-xs sm:text-sm transition-all shadow-sm border">
+        <!-- Center Status Pill: Duplicate ON/OFF & Label Mode (Visual Clarity) -->
+        <div class="flex flex-wrap items-center space-x-1.5 sm:space-x-2 order-3 lg:order-2 w-full lg:w-auto justify-center border-t lg:border-t-0 pt-1.5 lg:pt-0 border-slate-100">
+            <button id="toggleLabelModeBtn" onclick="window.app.toggleLabelMode()" class="flex items-center space-x-1.5 px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-full font-black text-xs sm:text-sm transition-all shadow-sm bg-indigo-600 text-white border border-indigo-700 hover:bg-indigo-500">
+                <!-- Content injected by JS -->
+            </button>
+            <button id="toggleDupBtn" onclick="window.app.toggleDuplicateMode()" class="flex items-center space-x-1.5 px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-full font-bold text-xs sm:text-sm transition-all shadow-sm border">
                 <!-- Content injected by JS -->
             </button>
             <button id="toggleAnimBtn" onclick="window.app.toggleAnimation()" class="flex items-center space-x-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-full font-bold text-xs sm:text-sm bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200 transition">
@@ -245,27 +248,33 @@
                 </button>
             </div>
 
-            <!-- TAB 1: Basic, Absent, Rigging -->
+            <!-- TAB 1: Basic Settings, Absent & Rigging -->
             <div id="tabContentBasic" class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6">
-                
-                <!-- Top Row: Class Name, Total Count, Batch Trigger -->
+                <!-- Top Row: Class Name, Total Count, Mode, Batch Trigger -->
                 <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-200">
-                    <div class="sm:col-span-4">
+                    <div class="sm:col-span-3">
                         <label class="block text-xs font-bold text-slate-500 mb-1">クラス名・タイトル</label>
                         <input id="inputClassName" type="text" value="2年A組" onchange="window.app.updateBasicSettings()" class="w-full px-3 py-2 rounded-xl border border-slate-300 font-bold text-base">
                     </div>
-                    <div class="sm:col-span-3">
-                        <label class="block text-xs font-bold text-slate-500 mb-1">クラスの人数 (1〜60人)</label>
-                        <div class="flex items-center space-x-2">
-                            <input id="inputTotalStudents" type="number" min="1" max="60" value="35" onchange="window.app.updateBasicSettings()" class="w-24 px-3 py-2 rounded-xl border border-slate-300 font-black text-lg text-center">
-                            <span class="font-bold text-sm text-slate-600">人</span>
+                    <div class="sm:col-span-2">
+                        <label class="block text-xs font-bold text-slate-500 mb-1">人数 (1〜60)</label>
+                        <div class="flex items-center space-x-1">
+                            <input id="inputTotalStudents" type="number" min="1" max="60" value="35" onchange="window.app.updateBasicSettings()" class="w-20 px-2.5 py-2 rounded-xl border border-slate-300 font-black text-lg text-center">
+                            <span class="font-bold text-xs text-slate-600">人</span>
                         </div>
                     </div>
-                    <div class="sm:col-span-5 flex flex-col justify-end">
+                    <div class="sm:col-span-3">
+                        <label class="block text-xs font-bold text-slate-500 mb-1">引く順番の表示モード</label>
+                        <select id="selectLabelMode" onchange="window.app.setLabelMode(this.value)" class="w-full px-2.5 py-2.5 rounded-xl border border-slate-300 font-black text-xs sm:text-sm bg-white text-slate-800">
+                            <option value="drawOrder">何番目に引いた人（〇人目）</option>
+                            <option value="attendance">出席番号順（出席番号〇番）</option>
+                        </select>
+                    </div>
+                    <div class="sm:col-span-4 flex flex-col justify-end">
                         <div class="flex items-center space-x-2">
-                            <button onclick="window.app.runInstantBatchFromTeacher()" class="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white py-2.5 px-4 rounded-xl font-black text-sm shadow flex items-center justify-center space-x-2">
+                            <button onclick="window.app.runInstantBatchFromTeacher()" class="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white py-2.5 px-3 rounded-xl font-black text-xs sm:text-sm shadow flex items-center justify-center space-x-1.5">
                                 <i class="fa-solid fa-bolt"></i>
-                                <span>今すぐ全員分を一発抽選する</span>
+                                <span>全員分を一発抽選</span>
                             </button>
                         </div>
                     </div>
@@ -284,15 +293,15 @@
                             <button onclick="window.app.clearAllRigging()" class="text-xs text-rose-600 hover:underline font-bold">仕込みを全解除</button>
                         </div>
                         <p class="text-xs text-slate-600 mb-3 leading-relaxed">
-                            一度指定した出席番号や結果番号は選択肢からロックされます。同じ番号を別の人に割り当てたい場合は、下のリストの「解除」を押してキャンセルしてください。
+                            一度指定した順番（または出席番号）や結果番号は選択肢からロックされます。変更したい場合は、下のリストの「解除」を押してキャンセルしてください。
                         </p>
 
                         <!-- Add Rigging Form -->
                         <div class="flex flex-wrap items-center gap-2 bg-white p-3 rounded-xl border border-amber-200 mb-4 shadow-sm">
                             <div class="flex items-center space-x-1.5">
-                                <span class="text-xs font-bold text-slate-600">出席番号</span>
+                                <span id="rigFormPrefixLabel" class="text-xs font-bold text-slate-600">出席番号</span>
                                 <select id="rigTurnSelect" class="px-2.5 py-1.5 rounded-lg border border-slate-300 font-black text-sm sm:text-base bg-slate-50"></select>
-                                <span class="text-xs font-bold text-slate-600">番 ➔ 結果</span>
+                                <span id="rigFormSuffixLabel" class="text-xs font-bold text-slate-600">番 ➔ 結果</span>
                                 <select id="rigValSelect" class="px-2.5 py-1.5 rounded-lg border border-slate-300 font-black text-sm sm:text-base bg-slate-50"></select>
                                 <span class="text-xs font-bold text-slate-600">番</span>
                             </div>
@@ -310,11 +319,11 @@
                     <!-- Right: Absent Students Exclusion (5 cols) -->
                     <div class="lg:col-span-5 bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col">
                         <div class="flex items-center justify-between mb-2">
-                            <h3 class="font-black text-slate-800 text-sm sm:text-base">欠席者の除外（スキップ）設定</h3>
-                            <button onclick="window.app.clearAbsent()" class="text-xs text-slate-500 hover:underline font-bold">全員出席に戻す</button>
+                            <h3 class="font-black text-slate-800 text-sm sm:text-base">スキップ（欠席番号）設定</h3>
+                            <button onclick="window.app.clearAbsent()" class="text-xs text-slate-500 hover:underline font-bold">すべて解除</button>
                         </div>
                         <p class="text-xs text-slate-500 mb-3">
-                            タップして赤くした出席番号の生徒は、くじ引きの順番が自動でスキップされます。
+                            タップして赤くした番号（順番・出席番号）は自動でスキップされます。
                         </p>
                         <div id="absentGrid" class="grid grid-cols-5 sm:grid-cols-6 gap-2 overflow-y-auto max-h-64 p-1">
                             <!-- 1..N buttons injected by JS -->
@@ -381,7 +390,7 @@
             <div class="flex items-center space-x-2 sm:space-x-3">
                 <span class="text-xs text-slate-300 mr-2 hidden lg:inline"><i class="fa-solid fa-camera mr-1"></i>スクリーンショットを撮って配布できます</span>
                 <div class="bg-slate-800 p-1 rounded-xl flex space-x-1 text-xs font-bold">
-                    <button id="distSortOrderBtn" onclick="window.app.setDistSort('order')" class="px-2.5 sm:px-3 py-1.5 rounded-lg bg-blue-600 text-white">出席番号順</button>
+                    <button id="distSortOrderBtn" onclick="window.app.setDistSort('order')" class="px-2.5 sm:px-3 py-1.5 rounded-lg bg-blue-600 text-white">引いた順 / 出席番号順</button>
                     <button id="distSortResultBtn" onclick="window.app.setDistSort('result')" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-slate-300 hover:text-white">結果の番号順</button>
                 </div>
                 <button onclick="window.app.closeDistributeView()" class="bg-slate-700 hover:bg-slate-600 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl font-bold text-xs sm:text-sm">
@@ -426,6 +435,7 @@
         const state = {
             className: "2年A組",
             totalStudents: 35,
+            labelMode: "drawOrder",      // 'drawOrder' (何番目に引いた人) | 'attendance' (出席番号〇番の人)
             allowDuplicates: false,      // Default: false (重複なし)
             useAnimation: true,          // Drumroll animation ON/OFF
             soundEnabled: true,          // Sound ON/OFF
@@ -433,9 +443,9 @@
             isDrawing: false,
             isCooldown: false,
             
-            currentSeatOrder: 1,         // Current student attendance number (1..N)
+            currentSeatOrder: 1,         // Current step/attendance number (1..N)
             results: [],                 // Array of { order: number, number: number }
-            absentOrders: [],            // Array of attendance numbers that are skipped
+            absentOrders: [],            // Array of numbers that are skipped
             riggedMap: {},               // { [order]: targetNumber } e.g., { 35: 1, 20: 2 }
 
             historySort: 'order',        // 'order' | 'result'
@@ -444,11 +454,23 @@
 
             // Saved in memory + synced with Firestore if available
             presets: [
-                { id: 'default-1', className: '2年A組', totalStudents: 35, riggedMap: { 35: 1, 20: 2 }, absentOrders: [] },
-                { id: 'default-2', className: '2年B組', totalStudents: 36, riggedMap: {}, absentOrders: [] }
+                { id: 'default-1', className: '2年A組', totalStudents: 35, labelMode: 'drawOrder', riggedMap: { 35: 1, 20: 2 }, absentOrders: [] },
+                { id: 'default-2', className: '2年B組', totalStudents: 36, labelMode: 'attendance', riggedMap: {}, absentOrders: [] }
             ],
             savedHistories: []
         };
+
+        // Helper functions for dynamic labels based on mode
+        function formatPersonLabel(orderNum) {
+            return state.labelMode === 'attendance'
+                ? `出席番号 ${orderNum} 番の人`
+                : `${orderNum} 番目に引く人`;
+        }
+        function formatShortPersonLabel(orderNum) {
+            return state.labelMode === 'attendance'
+                ? `出席 ${orderNum} 番`
+                : `${orderNum} 人目`;
+        }
 
         // --- Sound Effect Synthesizer (Tone.js) ---
         let synth = null;
@@ -663,7 +685,8 @@
                     const subText = document.getElementById('statusSubText');
                     if (state.currentSeatOrder <= state.totalStudents) {
                         btnText.textContent = `次の人の準備中... (${Math.ceil(remaining)}秒)`;
-                        subText.textContent = `出席番号 ${targetStudent} 番の人は「${chosenNumber}」番に決定！次の人と交代してください`;
+                        const personStr = state.labelMode === 'attendance' ? `出席番号 ${targetStudent} 番の人` : `${targetStudent} 人目`;
+                        subText.textContent = `${personStr}は「${chosenNumber}」番に決定！次の人と交代してください`;
                     }
                 }
             }, 500);
@@ -700,17 +723,29 @@
             const remainCount = Math.max(0, activeTotal - state.results.length);
             document.getElementById('headerCountBadge').textContent =
                 state.absentOrders.length > 0
-                    ? `全${state.totalStudents}人 (出席${activeTotal}人)`
+                    ? `全${state.totalStudents}人 (有効${activeTotal}人)`
                     : `全${state.totalStudents}人`;
+
+            // Label Mode Toggle Button Visual
+            const modeBtn = document.getElementById('toggleLabelModeBtn');
+            if (modeBtn) {
+                if (state.labelMode === 'attendance') {
+                    modeBtn.className = "flex items-center space-x-1.5 px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-full font-black text-xs sm:text-sm transition-all shadow-sm bg-indigo-600 text-white border border-indigo-700 hover:bg-indigo-500";
+                    modeBtn.innerHTML = `<i class="fa-solid fa-id-badge"></i><span>表示：出席番号順</span>`;
+                } else {
+                    modeBtn.className = "flex items-center space-x-1.5 px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-full font-black text-xs sm:text-sm transition-all shadow-sm bg-sky-600 text-white border border-sky-700 hover:bg-sky-500";
+                    modeBtn.innerHTML = `<i class="fa-solid fa-people-arrows"></i><span>表示：引いた順（〇人目）</span>`;
+                }
+            }
 
             // Duplicate Button Visual
             const dupBtn = document.getElementById('toggleDupBtn');
             if (state.allowDuplicates) {
-                dupBtn.className = "flex items-center space-x-2 px-4 py-2 rounded-full font-black text-sm transition-all shadow-sm bg-amber-500 text-white border border-amber-600";
-                dupBtn.innerHTML = `<i class="fa-solid fa-clone"></i><span>重複：あり（同じ番号が出ます）</span>`;
+                dupBtn.className = "flex items-center space-x-1.5 px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-full font-black text-xs sm:text-sm transition-all shadow-sm bg-amber-500 text-white border border-amber-600";
+                dupBtn.innerHTML = `<i class="fa-solid fa-clone"></i><span>重複：あり</span>`;
             } else {
-                dupBtn.className = "flex items-center space-x-2 px-4 py-2 rounded-full font-black text-sm transition-all shadow-sm bg-emerald-600 text-white border border-emerald-700";
-                dupBtn.innerHTML = `<i class="fa-solid fa-check-double"></i><span>重複：なし（全員違う番号）</span>`;
+                dupBtn.className = "flex items-center space-x-1.5 px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-full font-black text-xs sm:text-sm transition-all shadow-sm bg-emerald-600 text-white border border-emerald-700";
+                dupBtn.innerHTML = `<i class="fa-solid fa-check-double"></i><span>重複：なし</span>`;
             }
 
             // Animation & Sound toggles
@@ -735,7 +770,12 @@
                 drawBtnText.textContent = "抽選完了（右上の「一覧表示」で確認）";
                 statusSub.textContent = "おつかれさまでした！";
             } else {
-                turnTitle.innerHTML = `次は 出席番号 <span class="text-blue-600 text-3xl px-1">${state.currentSeatOrder}</span> 番の人`;
+                if (state.labelMode === 'attendance') {
+                    turnTitle.innerHTML = `次は 出席番号 <span class="text-blue-600 text-2xl sm:text-3xl px-1">${state.currentSeatOrder}</span> 番の人`;
+                } else {
+                    turnTitle.innerHTML = `次は <span class="text-blue-600 text-2xl sm:text-3xl px-1">${state.currentSeatOrder}</span> 番目に引く人（${state.currentSeatOrder}人目）`;
+                }
+
                 if (state.isDrawing) {
                     drawBtn.disabled = true;
                     drawBtnIcon.className = "fa-solid fa-spinner fa-spin";
@@ -747,12 +787,18 @@
                 } else {
                     drawBtn.disabled = false;
                     drawBtnIcon.className = "fa-solid fa-hand-pointer animate-bounce";
-                    drawBtnText.textContent = `出席番号 ${state.currentSeatOrder} 番の人が押す！`;
+                    if (state.labelMode === 'attendance') {
+                        drawBtnText.textContent = `出席番号 ${state.currentSeatOrder} 番の人が押す！`;
+                    } else {
+                        drawBtnText.textContent = `${state.currentSeatOrder} 人目の人がここを押す！`;
+                    }
+
                     if (state.results.length === 0) {
                         statusSub.textContent = "青いボタンを1回タッチしてください";
                     } else {
                         const last = state.results[state.results.length - 1];
-                        statusSub.textContent = `直前の結果：${last.order}番の人 ➔ ${last.number}番`;
+                        const lastLabel = state.labelMode === 'attendance' ? `出席番号${last.order}番の人` : `${last.order}人目`;
+                        statusSub.textContent = `直前の結果：${lastLabel} ➔ ${last.number}番`;
                     }
                 }
             }
@@ -764,7 +810,7 @@
 
             if (state.results.length === 0) {
                 container.innerHTML = `
-                    <div class="col-span-2 h-64 flex flex-col items-center justify-center text-slate-300">
+                    <div class="col-span-full h-64 flex flex-col items-center justify-center text-slate-300">
                         <i class="fa-solid fa-clipboard-list text-5xl mb-3"></i>
                         <p class="font-bold text-sm">まだ結果がありません</p>
                     </div>
@@ -789,11 +835,16 @@
                         ? 'bg-blue-50 border-blue-400 shadow-sm ring-2 ring-blue-200'
                         : 'bg-slate-50 border-slate-200'
                 }`;
+                const leftHtml = state.labelMode === 'attendance'
+                    ? `<span class="text-xs font-bold text-slate-400">出席</span>
+                       <span class="text-lg font-black text-slate-700 w-6 text-right">${item.order}</span>
+                       <span class="text-xs font-bold text-slate-400">番</span>`
+                    : `<span class="text-lg font-black text-slate-700 w-6 text-right">${item.order}</span>
+                       <span class="text-xs font-bold text-slate-500">人目</span>`;
+
                 card.innerHTML = `
-                    <div class="flex items-center space-x-2">
-                        <span class="text-xs font-bold text-slate-400">出席</span>
-                        <span class="text-lg font-black text-slate-700 w-7 text-right">${item.order}</span>
-                        <span class="text-xs font-bold text-slate-400">番</span>
+                    <div class="flex items-center space-x-1">
+                        ${leftHtml}
                     </div>
                     <i class="fa-solid fa-arrow-right text-slate-300 text-xs"></i>
                     <div class="flex items-baseline space-x-1">
@@ -809,6 +860,21 @@
         function renderTeacherPanel() {
             document.getElementById('inputClassName').value = state.className;
             document.getElementById('inputTotalStudents').value = state.totalStudents;
+            const modeSelect = document.getElementById('selectLabelMode');
+            if (modeSelect) modeSelect.value = state.labelMode;
+
+            // Update Rigging form labels based on mode
+            const prefixEl = document.getElementById('rigFormPrefixLabel');
+            const suffixEl = document.getElementById('rigFormSuffixLabel');
+            if (prefixEl && suffixEl) {
+                if (state.labelMode === 'attendance') {
+                    prefixEl.textContent = "出席番号";
+                    suffixEl.textContent = "番 ➔ 結果";
+                } else {
+                    prefixEl.textContent = "引く順番";
+                    suffixEl.textContent = "人目 ➔ 結果";
+                }
+            }
 
             // Populate dropdowns for rigging (Exclude already rigged students & already taken target numbers)
             const turnSel = document.getElementById('rigTurnSelect');
@@ -863,9 +929,13 @@
                 entries.forEach(([ord, val]) => {
                     const row = document.createElement('div');
                     row.className = "flex items-center justify-between bg-white px-4 py-2 rounded-xl border border-amber-200 shadow-2xs";
+                    const targetText = state.labelMode === 'attendance'
+                        ? `出席番号 <span class="text-blue-600 text-base">${ord}</span> 番の生徒`
+                        : `<span class="text-blue-600 text-base">${ord}</span> 番目に引く人（${ord}人目）`;
+
                     row.innerHTML = `
                         <div class="flex items-center space-x-3 font-black text-sm">
-                            <span class="text-slate-700">出席番号 <span class="text-blue-600 text-base">${ord}</span> 番の生徒</span>
+                            <span class="text-slate-700">${targetText}</span>
                             <i class="fa-solid fa-arrow-right text-amber-500"></i>
                             <span class="text-slate-700">結果 <span class="text-amber-600 text-base">${val}</span> 番に固定</span>
                         </div>
@@ -887,7 +957,7 @@
                         ? 'bg-rose-500 text-white border-rose-600 shadow-inner'
                         : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-100'
                 }`;
-                btn.textContent = isAbsent ? `${i}休` : i;
+                btn.textContent = isAbsent ? `${i}除` : i;
                 absentGrid.appendChild(btn);
             }
 
@@ -983,15 +1053,19 @@
             list.forEach(r => {
                 const box = document.createElement('div');
                 box.className = "bg-white border-2 border-slate-200 rounded-2xl p-3 flex flex-col items-center justify-center shadow-xs";
+                const topLabel = state.labelMode === 'attendance' ? `出席番号 ${r.order} 番` : `${r.order} 番目に引いた人`;
+                const subPrefix = state.labelMode === 'attendance' ? `出席` : `順番`;
+                const subSuffix = state.labelMode === 'attendance' ? `番` : `人目`;
+
                 if (state.distSort === 'order') {
                     box.innerHTML = `
-                        <div class="text-xs font-bold text-slate-400 mb-1">出席番号 ${r.order} 番</div>
+                        <div class="text-xs font-bold text-slate-400 mb-1">${topLabel}</div>
                         <div class="text-4xl font-black text-blue-600">${r.number}</div>
                     `;
                 } else {
                     box.innerHTML = `
                         <div class="text-xs font-bold text-blue-600 mb-1">結果 ${r.number} 番</div>
-                        <div class="text-3xl font-black text-slate-800"><span class="text-xs font-bold text-slate-400 mr-1">出席</span>${r.order}</div>
+                        <div class="text-2xl sm:text-3xl font-black text-slate-800"><span class="text-xs font-bold text-slate-400 mr-1">${subPrefix}</span>${r.order}<span class="text-xs font-bold text-slate-400 ml-0.5">${subSuffix}</span></div>
                     `;
                 }
                 grid.appendChild(box);
@@ -1038,6 +1112,23 @@
         window.app = {
             handleDrawClick,
 
+            toggleLabelMode() {
+                state.labelMode = state.labelMode === 'drawOrder' ? 'attendance' : 'drawOrder';
+                updateMainUI();
+                renderHistoryList();
+                const modeName = state.labelMode === 'attendance' ? '「出席番号順」表示' : '「引いた順（〇人目）」表示';
+                showToast(`${modeName}に切り替えました`);
+            },
+
+            setLabelMode(mode) {
+                if (mode === 'drawOrder' || mode === 'attendance') {
+                    state.labelMode = mode;
+                    renderTeacherPanel();
+                    updateMainUI();
+                    renderHistoryList();
+                }
+            },
+
             toggleDuplicateMode() {
                 if (state.results.length > 0) {
                     showConfirmDialog(
@@ -1081,7 +1172,7 @@
             confirmReset() {
                 showConfirmDialog(
                     "くじ引きのリセット",
-                    "現在の抽選結果をクリアして、出席番号1番からやり直しますか？",
+                    "現在の抽選結果をクリアして、最初からやり直しますか？",
                     () => {
                         state.results = [];
                         state.currentSeatOrder = 1;
@@ -1211,13 +1302,15 @@
 
                 state.riggedMap[ord] = val;
                 renderTeacherPanel();
-                showToast(`出席番号${ord}番 ➔ 結果${val}番 を設定しました`);
+                const labelStr = state.labelMode === 'attendance' ? `出席番号${ord}番` : `${ord}人目`;
+                showToast(`${labelStr} ➔ 結果${val}番 を設定しました`);
             },
 
             removeRigRule(ord) {
                 delete state.riggedMap[ord];
                 renderTeacherPanel();
-                showToast(`出席番号${ord}番の指定を解除しました`);
+                const labelStr = state.labelMode === 'attendance' ? `出席番号${ord}番` : `${ord}人目`;
+                showToast(`${labelStr}の指定を解除しました`);
             },
 
             clearAllRigging() {
@@ -1255,6 +1348,7 @@
                     id: 'preset-' + Date.now(),
                     className: state.className,
                     totalStudents: state.totalStudents,
+                    labelMode: state.labelMode,
                     riggedMap: { ...state.riggedMap },
                     absentOrders: [...state.absentOrders]
                 };
@@ -1268,6 +1362,7 @@
                         await setDoc(ref, {
                             className: newPreset.className,
                             totalStudents: newPreset.totalStudents,
+                            labelMode: newPreset.labelMode,
                             riggedMap: JSON.stringify(newPreset.riggedMap),
                             absentOrders: JSON.stringify(newPreset.absentOrders)
                         });
@@ -1280,6 +1375,7 @@
                 if (!found) return;
                 state.className = found.className;
                 state.totalStudents = found.totalStudents;
+                state.labelMode = found.labelMode || 'drawOrder';
                 state.riggedMap = { ...(found.riggedMap || {}) };
                 state.absentOrders = [...(found.absentOrders || [])];
                 state.results = [];
